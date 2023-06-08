@@ -1,0 +1,48 @@
+---
+title: "Final project"
+author: "Majid Mahmood"
+date: "2023-06-08"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(shiny)
+
+# Define UI
+ui <- fluidPage(
+  titlePanel("Next Word Prediction App"),
+  sidebarLayout(
+    sidebarPanel(
+      textInput("phrase_input", "Enter a phrase:"),
+      actionButton("predict_button", "Predict")
+    ),
+    mainPanel(
+      h4("Next Word Prediction:"),
+      verbatimTextOutput("prediction_output")
+    )
+  )
+)
+
+# Define server logic
+server <- function(input, output) {
+  
+  # Function to make prediction
+  makePrediction <- function(phrase) {
+    # Call your prediction algorithm here and return the predicted next word
+    # Replace the code below with your actual prediction algorithm
+    predicted_word <- paste0(phrase, " next")
+    return(predicted_word)
+  }
+  
+  # React to predict button click
+  observeEvent(input$predict_button, {
+    phrase <- input$phrase_input
+    prediction <- makePrediction(phrase)
+    output$prediction_output <- renderPrint(prediction)
+  })
+}
+
+# Run the application
+shinyApp(ui = ui, server = server)
+
+```
